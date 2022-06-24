@@ -7,6 +7,7 @@ import WeatherInfo from './components/WeatherInfo';
 import UnitsPicker from './components/UnitsPicker';
 import {colors} from './utils/index'
 import ReloadIcon from './components/ReloadIcon';
+import WeatherDetails from './components/WeatherDetails';
 
 const WEATHER_API_KEY = '539e2df1d36b431acd2dff6a5ce764e1'
 const BASE_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?'
@@ -59,6 +60,7 @@ export default function App() {
     }
   }
 
+  //Main function
   if(currentWeather) {
       return (
         <View style={styles.container}>
@@ -70,6 +72,7 @@ export default function App() {
             <WeatherInfo currentWeather={currentWeather}/>
 
           </View>
+          <WeatherDetails currentWeather={currentWeather}/>
         </View>
       );
   } else if (errorMessage){
