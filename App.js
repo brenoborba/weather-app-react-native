@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import * as Location from 'expo-location';
 import WeatherInfo from './components/WeatherInfo';
+import UnitsPicker from './components/UnitsPicker';
 
 const WEATHER_API_KEY = '539e2df1d36b431acd2dff6a5ce764e1'
 const BASE_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?'
@@ -19,7 +20,7 @@ export default function App() {
 
   useEffect(() => {
     load()
-  }, [])
+  }, [unitSystem])
 
   // Async function that will wait for the user permission for using location
   async function load(){
@@ -58,6 +59,8 @@ export default function App() {
         <View style={styles.container}>
           <StatusBar style="auto" />
           <View style={styles.main}>
+
+            <UnitsPicker unitSystem={unitSystem} setUnitSystem={setUnitSystem}/>
             <WeatherInfo currentWeather={currentWeather}/>
 
           </View>
