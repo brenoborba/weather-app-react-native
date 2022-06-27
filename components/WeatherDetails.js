@@ -12,7 +12,20 @@ export default function WeatherDetails({ currentWeather, unitSystem }) {
  
   } = currentWeather
 
+  // Isso poderia ser uma função... operador ternario é legal mas é pouco legivel
   const windSpeed = unitSystem === 'metric' ? `${Math.round(speed)} m/s` : `${Math.round(speed)} mph` 
+  // Exemplo
+  /*
+  const getWingSpeed = (unit, speed) => {
+    if (unit == 'metric') {
+      return `${Math.round(speed)} m/s`
+    }
+
+    return  `${Math.round(speed)} mph`
+  }
+  **/
+
+
 
   return (
     <View style={styles.weatherDetails}>

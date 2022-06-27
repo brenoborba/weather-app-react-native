@@ -13,6 +13,7 @@ export default function WeatherInfo({currentWeather}) {
 
   const { icon, main, description } = details
 
+  // Isso seria legal ser uma função getWeatherIcon no utils!!
   const iconUrl = `https://openweathermap.org/img/wn/${icon}@4x.png`
 
 

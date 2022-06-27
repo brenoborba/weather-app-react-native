@@ -34,14 +34,12 @@ export default function App() {
       let { status } = await Location.requestForegroundPermissionsAsync()
 
       if(status !== 'granted'){
-        setErrorMessage('Access to location is needed to run the app!')
-        return
+        return setErrorMessage('Access to location is needed to run the app!')
       }
 
-      // Variable for storing the location data once the user allows it.
-      const location = await Location.getCurrentPositionAsync()
-
-      const { latitude, longitude } = location.coords
+      // ---------------------------------------------------------
+      // Isso aqui deveria ser uma função dentro de um service.js
+      const {coords: {latitude, longitude}} = await Location.getCurrentPositionAsync()
       
       const weatherUrl = `${BASE_WEATHER_URL}lat=${latitude}&lon=${longitude}&units=${unitSystem}&appid=${WEATHER_API_KEY}`
 
@@ -49,11 +47,18 @@ export default function App() {
 
       const result = await response.json()
 
+      // Dai tu chamaria algo do tipo:
+
+      // const location = await Location.getCurrentPositionAsync()
+      // const result = getWeatherFromLocation(location)
+
+      // ---------------------------------------------------------
+
       if(response.ok){
-        setCurrentWeater(result)
-      } else{
-        setErrorMessage(result.errorMessage)
-      }
+       return setCurrentWeater(result)
+      } 
+            
+      return setErrorMessage(result.errorMessage) // ? é necessario essa validação dupla?
 
     } catch (error) {
       setErrorMessage(error.errorMessage)
@@ -74,7 +79,9 @@ export default function App() {
           <WeatherDetails currentWeather={currentWeather} unitSystem={unitSystem}/>
         </View>
       );
-  } else if (errorMessage){
+  } 
+  
+  if (errorMessage){
       return (
         <View style={styles.container}>
           <ReloadIcon load={load}/>
@@ -82,14 +89,14 @@ export default function App() {
           <StatusBar style="auto" />
         </View>
       )
-  } else {
-      return(
-        <View style={styles.container}>
-            <ActivityIndicator size={"large"} color={colors.PRIMARY_COLOR}/>
-            <StatusBar style="auto" />
-        </View>
-      )
-  }
+  } 
+  
+  return(
+    <View style={styles.container}>
+        <ActivityIndicator size={"large"} color={colors.PRIMARY_COLOR}/>
+        <StatusBar style="auto" />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
